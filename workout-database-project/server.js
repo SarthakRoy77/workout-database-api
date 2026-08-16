@@ -3,11 +3,11 @@ const pool = require('./pool.js')
 const errorHandler = require('./middleware/errorHandler.js');
 const port = 8000
 
-const app = express()
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+const server = express()
+server.use(express.json());
+server.use(express.urlencoded({ extended: false }));
 
-app.post('/api/exercise', async (req, res, next) => {
+server.post('/api/exercise', async (req, res, next) => {
     const name = req.body.name;
     const description = req.body.description;
     const caloriesBurnt = req.body.calorieBurned;
@@ -51,7 +51,7 @@ app.post('/api/exercise', async (req, res, next) => {
 
 });
 
-app.get('/api/exercise', async (req, res, next) => {
+server.get('/api/exercise', async (req, res, next) => {
     if (req.query.tag) {
         try {
             const tag = req.query.tag;
@@ -89,7 +89,7 @@ app.get('/api/exercise', async (req, res, next) => {
     }
 });
 
-app.get('/api/exercise/:id', async (req, res, next) => {
+server.get('/api/exercise/:id', async (req, res, next) => {
     try {
         const id = req.params.id;
 
@@ -107,7 +107,7 @@ app.get('/api/exercise/:id', async (req, res, next) => {
     }
     });
 
-app.put('/api/exercise/:id', async (req, res, next) => {
+server.put('/api/exercise/:id', async (req, res, next) => {
     const id = req.params.id;
     const caloriesBurnt = req.body.calorieBurned;
     const tag = req.body.tag
@@ -142,7 +142,7 @@ app.put('/api/exercise/:id', async (req, res, next) => {
 
 });
 
-app.delete('/api/exercise/:id', async (req, res, next) => {
+server.delete('/api/exercise/:id', async (req, res, next) => {
     try {
         const id = req.params.id;
 
@@ -162,8 +162,8 @@ app.delete('/api/exercise/:id', async (req, res, next) => {
     }
 })
 
-app.use(errorHandler);
+server.use(errorHandler);
 
-app.listen(port, () => {
+server.listen(port, () => {
     console.log(`Listening, on port ${port}`);
 })
