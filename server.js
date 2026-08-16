@@ -164,6 +164,6 @@ server.delete('/api/exercise/:id', async (req, res, next) => {
 
 server.use(errorHandler);
 
-server.listen("https://workout-database-api-gmcx.vercel.app/", () => {
+server.listen("https://workout-database-api-gmcx.vercel.app", () => {
     console.log(`Listening, on port ${port}`);
 })
