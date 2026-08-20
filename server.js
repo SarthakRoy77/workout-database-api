@@ -1,10 +1,16 @@
 const express = require('express');
 const pool = require('./pool.js')
+const cors = require('cors')
 const errorHandler = require('./middleware/errorHandler.js');
 const port = 8000
 
 const server = express()
 server.use(express.json());
+server.use(cors({
+    origin: 'http://localhost:3000',
+    credentials: true
+}));
+
 server.use(express.urlencoded({ extended: false }));
 
 server.post('/api/exercise', async (req, res, next) => {
@@ -164,6 +170,6 @@ server.delete('/api/exercise/:id', async (req, res, next) => {
 
 server.use(errorHandler);
 
-server.listen("https://workout-database-api-gmcx.vercel.app/", () => {
+server.listen(port, () => {
     console.log(`Listening, on port ${port}`);
 })
